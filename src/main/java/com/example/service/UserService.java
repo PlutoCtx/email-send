@@ -28,6 +28,9 @@ public class UserService {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private MailService mailService;
+
 
     /**
      * 注册账号
@@ -54,7 +57,9 @@ public class UserService {
         int result = userMapper.insertUser(user);
         Map<String, Object> resultMap = new HashMap<>();
         if (result > 0){
-            // TODO 发送邮件
+            // 发送邮件
+            String activationUrl = "http://localhost:8080/user/activation?confirmCode=" + confirmCode;
+            mailService.sendMailForActivationAccount(activationUrl, user.getEmail());
             resultMap.put("code", 200);
             resultMap.put("message", "注册成功，请前往邮箱进行账号激活");
         }else {
@@ -101,7 +106,32 @@ public class UserService {
 
     }
 
-
-
-
+    /**
+     * 激活账号
+     * @param confirmCode
+     * @return
+     */
+    @Transactional
+    public Map<String, Object> activationAccount(String confirmCode) {
+        Map<String, Object> resultMap = new HashMap<>();
+        // 根据确认码查询用户
+        User user = userMapper.selectUserByConfirmCode(confirmCode);
+        // 判断激活时间是否超时
+        boolean after = LocalDateTime.now().isAfter(user.getActivationTime());
+        if (after){
+            resultMap.put("code", 400);
+            resultMap.put("message", "链接已失效");
+            return resultMap;
+        }
+        // 根据确认码查询用户并修改状态值为1（可用）
+        int result = userMapper.updateUserByConfirmCode(confirmCode);
+        if (result > 0){
+            resultMap.put("code", 200);
+            resultMap.put("message", "激活成功");
+        }else {
+            resultMap.put("code", 400);
+            resultMap.put("message", "激活失败");
+        }
+        return resultMap;
+    }
 }

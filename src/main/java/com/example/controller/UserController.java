@@ -43,4 +43,15 @@ public class UserController {
         return userService.loginAccount(user);
     }
 
+
+    /**
+     * 激活账号
+     * @param confirmCode   确认码
+     * @return
+     */
+    @GetMapping("activation")
+    public Map<String, Object> activationAccount(String confirmCode){
+        return userService.activationAccount(confirmCode);
+    }
+
 }
