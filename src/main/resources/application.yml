@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/email?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: Yuhuangtao111
+  mail:
+    protocol: smtp    # Mail protocol
+    host: smtp.163.com  # NetEase Email SMTP server address
+    port: 25
+    username: chentingxian195467@163.com  # Sender's email address
+    password: JCLGKABEYMLUJVIL  # Authorization code
+    default-encoding: utf-8
+    properties:
+      mail:
+        debug: true
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true  # Turn on hump mapping
+
