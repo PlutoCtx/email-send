@@ -25,7 +25,7 @@ public class UserController {
 
     /**
      * 注册账号
-     * @param user
+     * @param user 用户
      * @return
      */
     @PostMapping("create")
@@ -35,7 +35,7 @@ public class UserController {
 
     /**
      * 登录账号
-     * @param user
+     * @param user 用户
      * @return
      */
     @PostMapping("login")
@@ -47,11 +47,13 @@ public class UserController {
     /**
      * 激活账号
      * @param confirmCode   确认码
-     * @return
+     * @return  激活，但我建议用激活码
      */
     @GetMapping("activation")
     public Map<String, Object> activationAccount(String confirmCode){
         return userService.activationAccount(confirmCode);
     }
+
+
 
 }
