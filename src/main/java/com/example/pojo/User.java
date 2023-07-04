@@ -20,13 +20,34 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class User implements Serializable {
 
-    private Integer id; //ID 主键
-    private String email;   //邮箱
-    private String password;    //密码， 使用md5 + 盐 加密
-    private String salt;    //盐
-    private String confirmCode; //确认码
-    private LocalDateTime activationTime;   //激活失效时间
-    private Byte isValid;   //是否可用
+    /**
+     * ID 主键
+     */
+    private Integer id;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
+     * 密码， 使用md5 + 盐 加密
+     */
+    private String password;
+    /**
+     * 盐
+     */
+    private String salt;
+    /**
+     * 确认码
+     */
+    private String confirmCode;
+    /**
+     * 激活失效时间
+     */
+    private LocalDateTime activationTime;
+    /**
+     * 是否可用
+     */
+    private Byte isValid;
 
 
 
